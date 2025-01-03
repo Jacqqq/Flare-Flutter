@@ -7,13 +7,9 @@ import 'package:meta/meta.dart';
 @immutable
 class AssetFlare extends AssetProvider {
   /// The bundle from which the Flare will be obtained.
-  ///
-  /// The Flare is obtained by calling [AssetBundle.load] on the given [bundle]
-  /// using the key given by [name].
   final AssetBundle bundle;
 
-  /// The key to use to obtain the resource from the [bundle]. This is the
-  /// argument passed to [AssetBundle.load].
+  /// The key to use to obtain the resource from the [bundle].
   final String name;
 
   const AssetFlare({
@@ -22,13 +18,11 @@ class AssetFlare extends AssetProvider {
   });
 
   @override
-  int get hashCode => hashValues(bundle, name);
+  int get hashCode => Object.hash(bundle, name); // Use Object.hash for better readability
 
   @override
-  bool operator ==(dynamic other) {
-    if (other.runtimeType != runtimeType) {
-      return false;
-    }
+  bool operator ==(Object other) { // Simplify the equality check
+    if (identical(this, other)) return true;
     return other is AssetFlare && other.bundle == bundle && other.name == name;
   }
 
